@@ -1,0 +1,17 @@
+# Build trees
+build/
+build-*/
+cmake-build-*/
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
