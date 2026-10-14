@@ -58,6 +58,7 @@ find_package(Threads REQUIRED)
 
 add_subdirectory(src/common)
 add_subdirectory(src/inventory)
+add_subdirectory(src/memlat)
 
 if(HWDIAG_BUILD_TESTS)
   enable_testing()

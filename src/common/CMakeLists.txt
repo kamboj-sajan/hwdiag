@@ -3,6 +3,7 @@ add_library(hwdiag_common STATIC
   affinity.cpp
   hostinfo.cpp
   json.cpp
+  memory.cpp
   result.cpp
   sysfs.cpp
   timing.cpp)
