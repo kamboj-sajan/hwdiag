@@ -36,6 +36,14 @@ def build_parser() -> argparse.ArgumentParser:
     cmp_.add_argument("--tolerance", type=float, default=5.0, help="allowed slowdown in percent")
     cmp_.add_argument("--json", action="store_true", help="print the comparison as JSON")
 
+    st = sub.add_parser("stress", help="membw on all cores while recording temperature and frequency")
+    st.add_argument("--minutes", type=float, default=10.0, help="how long to run (default 10)")
+    st.add_argument("--seconds", type=float, help="how long to run, in seconds (overrides --minutes)")
+    st.add_argument("--interval", type=float, default=1.0, help="seconds between samples")
+    st.add_argument("--root", default="/", help="filesystem root for sysfs and /proc (for tests)")
+    st.add_argument("--out", help="output directory (default: results/stress-<host>-<UTC time>)")
+    st.add_argument("--quiet", action="store_true", help="no progress lines")
+
     return p
 
 
@@ -58,6 +66,10 @@ def main(argv: list[str] | None = None) -> int:
             from . import compare
 
             return compare.command(args)
+        if args.command == "stress":
+            from . import stress
+
+            return stress.command(args)
     except results.ResultError as e:
         print(f"hwdiag: {e}", file=sys.stderr)
         return 1

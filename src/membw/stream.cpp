@@ -192,6 +192,7 @@ double run_stress(const StressOptions& opts) {
   Arrays arrays(n);
   std::atomic<bool> stop{false};
   std::atomic<uint64_t> bytes_done{0};
+  std::atomic<int> ready{0};
   constexpr size_t kChunk = 1u << 18;  // elements per progress update
 
   std::vector<std::thread> workers;
@@ -207,6 +208,7 @@ double run_stress(const StressOptions& opts) {
         b[j] = 2.0;
         c[j] = 0.5;
       }
+      ready.fetch_add(1, std::memory_order_release);
       while (!stop.load(std::memory_order_relaxed)) {
         for (size_t j = begin; j < end && !stop.load(std::memory_order_relaxed); j += kChunk) {
           const size_t e = std::min(end, j + kChunk);
@@ -217,9 +219,12 @@ double run_stress(const StressOptions& opts) {
     });
   }
 
+  // The clock starts once every worker has first-touched its slice, so the
+  // samples cover the load itself, not page-fault time.
+  while (ready.load(std::memory_order_acquire) < threads) std::this_thread::sleep_for(std::chrono::milliseconds(1));
   const uint64_t t_start = now_ns();
   uint64_t last_t = t_start;
-  uint64_t last_bytes = 0;
+  uint64_t last_bytes = bytes_done.load(std::memory_order_relaxed);
   double total_gbs = 0.0;
   int samples = 0;
   const auto interval_ns = static_cast<uint64_t>(opts.interval_s * 1e9);

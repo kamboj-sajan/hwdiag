@@ -2,7 +2,8 @@
 """Generate the fake /proc and /sys trees under tests/fixtures/sys/.
 
 desktop: 4 cores / 8 threads with SMT, a GPU whose link has dropped to
-         2.5 GT/s x16 (max 16 GT/s x16), one sensor at 91 C, no EDAC.
+         2.5 GT/s x16 (max 16 GT/s x16), one sensor at 91 C, no EDAC,
+         /proc/stat and Intel thermal_throttle counters (for stress).
 server:  2 sockets x 4 cores, SMT off, 2 NUMA nodes, no cpufreq,
          a NIC running x8 in an x16 slot, EDAC with ce_count 3 on mc0.
 
@@ -102,6 +103,11 @@ def desktop(root: Path) -> None:
     pci(root, "0000:01:00.0", "0x10de", "0x2484", "0x030000", ("2.5 GT/s PCIe", 16, "16.0 GT/s PCIe", 16))
     pci(root, "0000:02:00.0", "0x144d", "0xa808", "0x010802", ("8.0 GT/s PCIe", 4, "8.0 GT/s PCIe", 4))
     pci(root, "0000:03:00.0", "0x8086", "0x15b8", "0x020000", ("Unknown", 0, "2.5 GT/s PCIe", 1))
+    write(root, "/proc/stat", "cpu  1000 0 500 8000 100 0 0 0 0 0\ncpu0 250 0 125 2000 25 0 0 0 0 0\n")
+    for cpu in range(8):
+        base = f"/sys/devices/system/cpu/cpu{cpu}/thermal_throttle/"
+        write(root, base + "core_throttle_count", str(cpu))
+        write(root, base + "package_throttle_count", "2" if cpu == 0 else "0")
     write(root, "/sys/class/hwmon/hwmon0/name", "coretemp")
     write(root, "/sys/class/hwmon/hwmon0/temp1_input", "91000")
     write(root, "/sys/class/hwmon/hwmon0/temp1_label", "Package id 0")

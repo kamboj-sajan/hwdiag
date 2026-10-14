@@ -237,16 +237,19 @@ def stress(samples: list[dict[str, Any]], throttled: list[tuple[float, float]], 
     charts sharing the time axis (never two y-scales on one chart)."""
     t = [s["t"] for s in samples]
     rows = [
-        ("CPU frequency (mean of all CPUs)", "MHz", [s["freq_mhz_mean"] for s in samples]),
-        ("Hottest temperature sensor", "C", [s["temp_c_max"] for s in samples]),
-        ("Triad bandwidth, all threads", "GB/s", [s["gbs"] for s in samples]),
+        ("CPU frequency (mean of all CPUs)", "MHz", [s["freq_mhz_mean"] for s in samples], True),
+        ("Hottest temperature sensor", "C", [s["temp_c_max"] for s in samples], False),
+        ("Triad bandwidth, all threads", "GB/s", [s["gbs"] for s in samples], True),
     ]
     fig, axes = plt.subplots(3, 1, figsize=(9, 7.5), dpi=130, sharex=True)
     fig.patch.set_facecolor(SURFACE)
-    for ax, (title, unit, ys) in zip(axes, rows, strict=True):
+    for ax, (title, unit, ys, from_zero) in zip(axes, rows, strict=True):
         pairs = [(x, y) for x, y in zip(t, ys, strict=True) if y is not None]
+        _style(ax, title, "", unit)
         if pairs:
             ax.plot([p[0] for p in pairs], [p[1] for p in pairs], color=SERIES[0], linewidth=2)
+            if from_zero:
+                ax.set_ylim(bottom=0, top=max(p[1] for p in pairs) * 1.1)
         else:
             ax.text(
                 0.5,
@@ -258,9 +261,11 @@ def stress(samples: list[dict[str, Any]], throttled: list[tuple[float, float]], 
                 color=MUTED,
                 fontsize=9,
             )
+            ax.set_yticks([])
         for start, end in throttled:
             ax.axvspan(start, end, color=STATUS_SERIOUS, alpha=0.18, linewidth=0)
-        _style(ax, title, "", unit)
+    if t:
+        axes[-1].set_xlim(0, max(t))
     axes[-1].set_xlabel("seconds", color=INK_2, fontsize=9)
     if throttled:
         axes[0].annotate(
