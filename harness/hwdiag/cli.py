@@ -26,6 +26,16 @@ def build_parser() -> argparse.ArgumentParser:
     run.add_argument("--suite", choices=["quick", "full"], default="quick")
     run.add_argument("--out", help="run directory (default: results/<host>-<UTC time>)")
 
+    rep = sub.add_parser("report", help="plots and a Markdown report for a run directory")
+    rep.add_argument("run", help="run directory (or its run.json)")
+    rep.add_argument("--out", help="where to write REPORT.md and the plots (default: the run directory)")
+
+    cmp_ = sub.add_parser("compare", help="compare two runs; exit 1 if anything got worse than the tolerance")
+    cmp_.add_argument("base", help="baseline run directory or result file")
+    cmp_.add_argument("new", help="new run directory or result file")
+    cmp_.add_argument("--tolerance", type=float, default=5.0, help="allowed slowdown in percent")
+    cmp_.add_argument("--json", action="store_true", help="print the comparison as JSON")
+
     return p
 
 
@@ -40,6 +50,14 @@ def main(argv: list[str] | None = None) -> int:
             from . import run
 
             return run.command(args)
+        if args.command == "report":
+            from . import report
+
+            return report.command(args)
+        if args.command == "compare":
+            from . import compare
+
+            return compare.command(args)
     except results.ResultError as e:
         print(f"hwdiag: {e}", file=sys.stderr)
         return 1
