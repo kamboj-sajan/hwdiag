@@ -116,21 +116,23 @@ def latency_curve(memlat: dict[str, Any], out: Path) -> Path:
     ax.plot(xs, [p["median_ns"] for p in pts], color=color, linewidth=2, label=f"{curve['name']} median")
     ax.set_yscale("log")
     ax.yaxis.set_major_formatter(FuncFormatter(lambda v, _: f"{v:g}"))
-    top = max(p["max_ns"] for p in pts)
     seen = set()
     for c in r["sysfs_caches"]:
         if c["type"] == "Instruction" or c["size_bytes"] in seen:
             continue
         seen.add(c["size_bytes"])
         ax.axvline(c["size_bytes"], color=MUTED, linewidth=0.8, zorder=1)
+        # Labelled in the top margin, so a label never sits on the curve.
         ax.annotate(
             f"L{c['level']} {size_label(c['size_bytes'])}",
-            (c["size_bytes"], top),
-            xytext=(3, 0),
+            (c["size_bytes"], 1.0),
+            xycoords=("data", "axes fraction"),
+            xytext=(0, 3),
             textcoords="offset points",
             fontsize=8,
             color=INK_2,
-            va="top",
+            ha="center",
+            va="bottom",
         )
     by_size = {p["size_bytes"]: p["median_ns"] for p in pts}
     bx = [b["size_before"] for b in curve["boundaries"] if b["size_before"] in by_size]
@@ -147,6 +149,7 @@ def latency_curve(memlat: dict[str, Any], out: Path) -> Path:
         )
     _size_axis(ax, xs)
     _style(ax, f"Memory latency, {curve['name']}", "buffer size (log2)", "ns per load (log)")
+    ax.set_title(f"Memory latency, {curve['name']}", loc="left", color=INK, fontsize=12, pad=22)
     ax.legend(frameon=False, fontsize=8, loc="upper left", labelcolor=INK_2)
     fig.tight_layout()
     fig.savefig(out, facecolor=SURFACE)
