@@ -19,10 +19,11 @@ set(HWDIAG_TEST_SOURCES
   test_inventory.cpp
   test_memlat.cpp
   test_perfctr.cpp
-  test_membw.cpp)
+  test_membw.cpp
+  test_memtest.cpp)
 
 add_executable(hwdiag_tests ${HWDIAG_TEST_SOURCES})
-target_link_libraries(hwdiag_tests PRIVATE hwdiag_inventory hwdiag_memlat hwdiag_perfctr hwdiag_membw GTest::gtest_main)
+target_link_libraries(hwdiag_tests PRIVATE hwdiag_inventory hwdiag_memlat hwdiag_perfctr hwdiag_membw hwdiag_memtest GTest::gtest_main)
 target_compile_definitions(hwdiag_tests PRIVATE
   HWDIAG_FIXTURES_DIR="${CMAKE_SOURCE_DIR}/tests/fixtures")
 gtest_discover_tests(hwdiag_tests DISCOVERY_TIMEOUT 60)

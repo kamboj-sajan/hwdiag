@@ -61,6 +61,7 @@ add_subdirectory(src/perfctr)
 add_subdirectory(src/inventory)
 add_subdirectory(src/memlat)
 add_subdirectory(src/membw)
+add_subdirectory(src/memtest)
 
 if(HWDIAG_BUILD_TESTS)
   enable_testing()
