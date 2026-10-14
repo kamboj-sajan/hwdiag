@@ -1,0 +1,83 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build-test:
+    name: ${{ matrix.name }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: release
+            cxx: g++
+            cmake_args: -DCMAKE_BUILD_TYPE=Release
+          - name: sanitize
+            cxx: g++
+            cmake_args: -DCMAKE_BUILD_TYPE=Release -DHWDIAG_SANITIZE=ON
+          - name: clang
+            cxx: clang++
+            cmake_args: -DCMAKE_BUILD_TYPE=Release
+    env:
+      CXX: ${{ matrix.cxx }}
+      ASAN_OPTIONS: abort_on_error=1:detect_leaks=1
+      UBSAN_OPTIONS: print_stacktrace=1:halt_on_error=1
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake ninja-build clang libgtest-dev libgmock-dev
+
+      - name: Show the machine
+        run: |
+          lscpu | head -20
+          echo "perf_event_paranoid=$(cat /proc/sys/kernel/perf_event_paranoid)"
+          ulimit -l
+
+      - name: Configure
+        run: cmake -S . -B build -G Ninja ${{ matrix.cmake_args }}
+
+      - name: Build
+        run: cmake --build build
+
+      - name: Unit tests (GoogleTest)
+        run: ctest --test-dir build --output-on-failure
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install the harness
+        run: pip install -e ".[dev]"
+
+      - name: Lint (ruff)
+        run: |
+          ruff check .
+          ruff format --check .
+
+      - name: Unit tests (pytest)
+        run: pytest -q
+
+      # Hardware counters are usually unavailable on GitHub's runners, so this
+      # step proves the fallback path: every tool must still run and validate.
+      - name: Quick suite
+        run: hwdiag run --suite quick --out results/ci
+
+      - name: Report
+        run: hwdiag report results/ci
+
+      - name: Compare the run with itself
+        run: hwdiag compare results/ci results/ci --tolerance 5
+
+      - name: Upload the run
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: quick-run-${{ matrix.name }}
+          path: results/ci
+          if-no-files-found: ignore
