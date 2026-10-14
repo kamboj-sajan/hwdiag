@@ -1,0 +1,278 @@
+{
+  "format_version": 1,
+  "tool": "inventory",
+  "tool_version": "0.1.0",
+  "timestamp": "2026-10-14T11:48:15Z",
+  "git_commit": "baba4ddc43e8",
+  "host": {
+    "hostname": "vm",
+    "kernel": "6.18.44-fc-v114",
+    "cpu_model": "Intel(R) Core(TM) i7-7700K CPU @ 4.20GHz",
+    "logical_cpus": 8,
+    "governor": "powersave",
+    "turbo": "on",
+    "smt": "on",
+    "compiler": "GCC 13.3.0",
+    "compiler_flags": "-std=c++20 -O2 -DNDEBUG -Wall -Wextra -Werror",
+    "build_type": "Release"
+  },
+  "params": {
+    "root": "tests/fixtures/sys/desktop",
+    "temp_threshold_c": 85
+  },
+  "results": {
+    "cpu": {
+      "vendor": "GenuineIntel",
+      "model": "Intel(R) Core(TM) i7-7700K CPU @ 4.20GHz",
+      "logical_cpus": 8,
+      "flags": [
+        "fpu",
+        "vme",
+        "de",
+        "pse",
+        "tsc",
+        "msr",
+        "pae",
+        "mce",
+        "cx8",
+        "apic",
+        "sep",
+        "mtrr",
+        "sse",
+        "sse2",
+        "ht",
+        "avx",
+        "avx2",
+        "fma",
+        "bmi2"
+      ]
+    },
+    "topology": {
+      "sockets": 1,
+      "cores": 4,
+      "threads": 8,
+      "threads_per_core": 2
+    },
+    "caches": [
+      {
+        "level": 1,
+        "type": "Data",
+        "size_bytes": 32768,
+        "line_size": 64,
+        "shared_cpu_list": "0,4"
+      },
+      {
+        "level": 1,
+        "type": "Instruction",
+        "size_bytes": 32768,
+        "line_size": 64,
+        "shared_cpu_list": "0,4"
+      },
+      {
+        "level": 2,
+        "type": "Unified",
+        "size_bytes": 262144,
+        "line_size": 64,
+        "shared_cpu_list": "0,4"
+      },
+      {
+        "level": 3,
+        "type": "Unified",
+        "size_bytes": 8388608,
+        "line_size": 64,
+        "shared_cpu_list": "0-7"
+      }
+    ],
+    "frequency": {
+      "available": true,
+      "governor": "powersave",
+      "per_cpu": [
+        {
+          "cpu": 0,
+          "cur_mhz": 4400,
+          "min_mhz": 800,
+          "max_mhz": 4500
+        },
+        {
+          "cpu": 1,
+          "cur_mhz": 4300,
+          "min_mhz": 800,
+          "max_mhz": 4500
+        },
+        {
+          "cpu": 2,
+          "cur_mhz": 4200,
+          "min_mhz": 800,
+          "max_mhz": 4500
+        },
+        {
+          "cpu": 3,
+          "cur_mhz": 4100,
+          "min_mhz": 800,
+          "max_mhz": 4500
+        },
+        {
+          "cpu": 4,
+          "cur_mhz": 4000,
+          "min_mhz": 800,
+          "max_mhz": 4500
+        },
+        {
+          "cpu": 5,
+          "cur_mhz": 3900,
+          "min_mhz": 800,
+          "max_mhz": 4500
+        },
+        {
+          "cpu": 6,
+          "cur_mhz": 3800,
+          "min_mhz": 800,
+          "max_mhz": 4500
+        },
+        {
+          "cpu": 7,
+          "cur_mhz": 3700,
+          "min_mhz": 800,
+          "max_mhz": 4500
+        }
+      ]
+    },
+    "memory": {
+      "total_kib": 32768000,
+      "free_kib": 20000000,
+      "available_kib": 28000000,
+      "hugepages_total": 0,
+      "hugepage_size_kib": 2048
+    },
+    "numa": [
+      {
+        "node": 0,
+        "cpus": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "mem_total_kib": 32768000
+      }
+    ],
+    "pcie": [
+      {
+        "address": "0000:00:00.0",
+        "vendor": "0x8086",
+        "device": "0x591f",
+        "class": "0x060000",
+        "class_name": "Host bridge",
+        "link": null
+      },
+      {
+        "address": "0000:01:00.0",
+        "vendor": "0x10de",
+        "device": "0x2484",
+        "class": "0x030000",
+        "class_name": "VGA controller",
+        "link": {
+          "cur_speed_gts": 2.5,
+          "cur_width": 16,
+          "max_speed_gts": 16,
+          "max_width": 16,
+          "cur_speed_raw": "2.5 GT/s PCIe",
+          "max_speed_raw": "16.0 GT/s PCIe"
+        }
+      },
+      {
+        "address": "0000:02:00.0",
+        "vendor": "0x144d",
+        "device": "0xa808",
+        "class": "0x010802",
+        "class_name": "NVMe controller",
+        "link": {
+          "cur_speed_gts": 8,
+          "cur_width": 4,
+          "max_speed_gts": 8,
+          "max_width": 4,
+          "cur_speed_raw": "8.0 GT/s PCIe",
+          "max_speed_raw": "8.0 GT/s PCIe"
+        }
+      },
+      {
+        "address": "0000:03:00.0",
+        "vendor": "0x8086",
+        "device": "0x15b8",
+        "class": "0x020000",
+        "class_name": "Ethernet controller",
+        "link": {
+          "cur_speed_gts": null,
+          "cur_width": 0,
+          "max_speed_gts": 2.5,
+          "max_width": 1,
+          "cur_speed_raw": "Unknown",
+          "max_speed_raw": "2.5 GT/s PCIe"
+        }
+      }
+    ],
+    "sensors": [
+      {
+        "chip": "coretemp",
+        "label": "Package id 0",
+        "kind": "temperature",
+        "value": 91,
+        "unit": "C"
+      },
+      {
+        "chip": "coretemp",
+        "label": "Core 0",
+        "kind": "temperature",
+        "value": 55,
+        "unit": "C"
+      },
+      {
+        "chip": "nvme",
+        "label": "Composite",
+        "kind": "temperature",
+        "value": 42.85,
+        "unit": "C"
+      },
+      {
+        "chip": "nct6775",
+        "label": "in0",
+        "kind": "voltage",
+        "value": 1.032,
+        "unit": "V"
+      }
+    ],
+    "edac": {
+      "present": false,
+      "controllers": []
+    },
+    "checks": [
+      {
+        "level": "warn",
+        "check": "pcie_link",
+        "subject": "0000:01:00.0",
+        "message": "VGA controller link at 2.5 GT/s x16, maximum 16 GT/s x16 (slower). GPUs and some other devices slow their links on purpose when idle: re-check under load"
+      },
+      {
+        "level": "warn",
+        "check": "temperature",
+        "subject": "coretemp/Package id 0",
+        "message": "91.0 C is above the 85 C threshold"
+      },
+      {
+        "level": "info",
+        "check": "edac",
+        "subject": "edac",
+        "message": "EDAC not present (normal on desktops and VMs); memory error counts can't be read"
+      }
+    ],
+    "status": "warn"
+  },
+  "warnings": [
+    "pcie_link 0000:01:00.0: VGA controller link at 2.5 GT/s x16, maximum 16 GT/s x16 (slower). GPUs and some other devices slow their links on purpose when idle: re-check under load",
+    "temperature coretemp/Package id 0: 91.0 C is above the 85 C threshold"
+  ]
+}

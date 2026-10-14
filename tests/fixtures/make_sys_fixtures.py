@@ -58,7 +58,11 @@ def pci(root: Path, addr: str, vendor: str, device: str, cls: str, link: tuple |
 
 def desktop(root: Path) -> None:
     flags = "fpu vme de pse tsc msr pae mce cx8 apic sep mtrr sse sse2 ht avx avx2 fma bmi2"
-    write(root, "/proc/cpuinfo", cpuinfo("Intel(R) Core(TM) i7-7700K CPU @ 4.20GHz", "GenuineIntel", 8, 4200.0, flags))
+    write(
+        root,
+        "/proc/cpuinfo",
+        cpuinfo("Intel(R) Core(TM) i7-7700K CPU @ 4.20GHz", "GenuineIntel", 8, 4200.0, flags),
+    )
     write(
         root,
         "/proc/meminfo",
@@ -76,11 +80,24 @@ def desktop(root: Path) -> None:
         write(root, base + "cpufreq/cpuinfo_min_freq", "800000")
         write(root, base + "cpufreq/cpuinfo_max_freq", "4500000")
         write(root, base + "cpufreq/scaling_governor", "powersave")
-    caches(root, 0, [(1, "Data", "32K", "0,4"), (1, "Instruction", "32K", "0,4"), (2, "Unified", "256K", "0,4"), (3, "Unified", "8192K", "0-7")])
+    caches(
+        root,
+        0,
+        [
+            (1, "Data", "32K", "0,4"),
+            (1, "Instruction", "32K", "0,4"),
+            (2, "Unified", "256K", "0,4"),
+            (3, "Unified", "8192K", "0-7"),
+        ],
+    )
     write(root, "/sys/devices/system/cpu/intel_pstate/no_turbo", "0")
     write(root, "/sys/devices/system/cpu/smt/active", "1")
     write(root, "/sys/devices/system/node/node0/cpulist", "0-7")
-    write(root, "/sys/devices/system/node/node0/meminfo", "Node 0 MemTotal:       32768000 kB\nNode 0 MemFree:        20000000 kB\n")
+    write(
+        root,
+        "/sys/devices/system/node/node0/meminfo",
+        "Node 0 MemTotal:       32768000 kB\nNode 0 MemFree:        20000000 kB\n",
+    )
     pci(root, "0000:00:00.0", "0x8086", "0x591f", "0x060000", None)
     pci(root, "0000:01:00.0", "0x10de", "0x2484", "0x030000", ("2.5 GT/s PCIe", 16, "16.0 GT/s PCIe", 16))
     pci(root, "0000:02:00.0", "0x144d", "0xa808", "0x010802", ("8.0 GT/s PCIe", 4, "8.0 GT/s PCIe", 4))
@@ -99,7 +116,11 @@ def desktop(root: Path) -> None:
 
 def server(root: Path) -> None:
     flags = "fpu vme de pse tsc msr pae mce cx8 apic sep mtrr sse sse2 avx avx2 avx512f"
-    write(root, "/proc/cpuinfo", cpuinfo("Intel(R) Xeon(R) Gold 6338 CPU @ 2.00GHz", "GenuineIntel", 8, 2000.0, flags))
+    write(
+        root,
+        "/proc/cpuinfo",
+        cpuinfo("Intel(R) Xeon(R) Gold 6338 CPU @ 2.00GHz", "GenuineIntel", 8, 2000.0, flags),
+    )
     write(
         root,
         "/proc/meminfo",
@@ -113,11 +134,24 @@ def server(root: Path) -> None:
         write(root, base + "die_id", "0")
         write(root, base + "core_id", str(core))
         write(root, base + "thread_siblings_list", str(cpu))
-    caches(root, 0, [(1, "Data", "48K", "0"), (1, "Instruction", "32K", "0"), (2, "Unified", "1280K", "0"), (3, "Unified", "49152K", "0-3")])
+    caches(
+        root,
+        0,
+        [
+            (1, "Data", "48K", "0"),
+            (1, "Instruction", "32K", "0"),
+            (2, "Unified", "1280K", "0"),
+            (3, "Unified", "49152K", "0-3"),
+        ],
+    )
     write(root, "/sys/devices/system/cpu/smt/active", "0")
     for node, cpus in ((0, "0-3"), (1, "4-7")):
         write(root, f"/sys/devices/system/node/node{node}/cpulist", cpus)
-        write(root, f"/sys/devices/system/node/node{node}/meminfo", f"Node {node} MemTotal:       131960796 kB\n")
+        write(
+            root,
+            f"/sys/devices/system/node/node{node}/meminfo",
+            f"Node {node} MemTotal:       131960796 kB\n",
+        )
     pci(root, "0000:00:00.0", "0x8086", "0x09a2", "0x088000", None)
     pci(root, "0000:17:00.0", "0x15b3", "0x101d", "0x020000", ("8.0 GT/s PCIe", 8, "8.0 GT/s PCIe", 16))
     pci(root, "0000:b1:00.0", "0x144d", "0xa824", "0x010802", ("16.0 GT/s PCIe", 4, "16.0 GT/s PCIe", 4))

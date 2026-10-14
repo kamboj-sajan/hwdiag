@@ -1,0 +1,296 @@
+{
+  "format_version": 1,
+  "tool": "membw",
+  "tool_version": "0.1.0",
+  "timestamp": "2026-10-14T11:47:54Z",
+  "git_commit": "e838faf6377c",
+  "host": {
+    "hostname": "vm",
+    "kernel": "6.18.44-fc-v114",
+    "cpu_model": "Intel(R) Xeon(R) Processor @ 2.10GHz",
+    "logical_cpus": 4,
+    "governor": null,
+    "turbo": "unknown",
+    "smt": "off",
+    "compiler": "GCC 13.3.0",
+    "compiler_flags": "-std=c++20 -O2 -DNDEBUG -Wall -Wextra -Werror",
+    "build_type": "Release"
+  },
+  "params": {
+    "array_bytes": 1090519040,
+    "elements": 136314880,
+    "llc_bytes": 272629760,
+    "llc_multiple": 4,
+    "root": "/",
+    "cpu_order": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "mode": "sweep",
+    "reps": 3,
+    "thread_counts": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "results": {
+    "mode": "sweep",
+    "runs": [
+      {
+        "threads": 1,
+        "cpus": [
+          0
+        ],
+        "kernels": {
+          "copy": {
+            "best_gbs": 10.03163820419554,
+            "median_gbs": 9.730364224685312,
+            "min_gbs": 9.685344117398992,
+            "spread_pct": 3.558901586828797,
+            "samples_gbs": [
+              9.685344117398992,
+              9.730364224685312,
+              10.03163820419554
+            ],
+            "counters": null
+          },
+          "scale": {
+            "best_gbs": 10.425858131854792,
+            "median_gbs": 10.215331780923524,
+            "min_gbs": 10.120449716906128,
+            "spread_pct": 2.989706271890203,
+            "samples_gbs": [
+              10.425858131854792,
+              10.215331780923524,
+              10.120449716906128
+            ],
+            "counters": null
+          },
+          "add": {
+            "best_gbs": 12.005157911453402,
+            "median_gbs": 11.93326065436365,
+            "min_gbs": 10.993838372858603,
+            "spread_pct": 8.474796351867072,
+            "samples_gbs": [
+              10.993838372858603,
+              11.93326065436365,
+              12.005157911453402
+            ],
+            "counters": null
+          },
+          "triad": {
+            "best_gbs": 11.891832255707028,
+            "median_gbs": 11.848393021982968,
+            "min_gbs": 11.465501951349502,
+            "spread_pct": 3.5982120407934826,
+            "samples_gbs": [
+              11.465501951349502,
+              11.891832255707028,
+              11.848393021982968
+            ],
+            "counters": null
+          }
+        },
+        "validated": true,
+        "max_rel_error": 0
+      },
+      {
+        "threads": 2,
+        "cpus": [
+          0,
+          1
+        ],
+        "kernels": {
+          "copy": {
+            "best_gbs": 19.82108443812669,
+            "median_gbs": 18.839706165144307,
+            "min_gbs": 18.664600503225127,
+            "spread_pct": 6.138545499404841,
+            "samples_gbs": [
+              18.664600503225127,
+              19.82108443812669,
+              18.839706165144307
+            ],
+            "counters": null
+          },
+          "scale": {
+            "best_gbs": 19.6894802009303,
+            "median_gbs": 18.620597420807986,
+            "min_gbs": 17.92966847388705,
+            "spread_pct": 9.450887569679747,
+            "samples_gbs": [
+              19.6894802009303,
+              18.620597420807986,
+              17.92966847388705
+            ],
+            "counters": null
+          },
+          "add": {
+            "best_gbs": 22.467630745953315,
+            "median_gbs": 21.622249070398315,
+            "min_gbs": 20.846632900320145,
+            "spread_pct": 7.496897479792598,
+            "samples_gbs": [
+              22.467630745953315,
+              21.622249070398315,
+              20.846632900320145
+            ],
+            "counters": null
+          },
+          "triad": {
+            "best_gbs": 23.070109844596065,
+            "median_gbs": 22.252598077251292,
+            "min_gbs": 22.083255490907465,
+            "spread_pct": 4.434782627460724,
+            "samples_gbs": [
+              23.070109844596065,
+              22.083255490907465,
+              22.252598077251292
+            ],
+            "counters": null
+          }
+        },
+        "validated": true,
+        "max_rel_error": 0
+      },
+      {
+        "threads": 3,
+        "cpus": [
+          0,
+          1,
+          2
+        ],
+        "kernels": {
+          "copy": {
+            "best_gbs": 27.82278149274666,
+            "median_gbs": 27.659195005676125,
+            "min_gbs": 27.647956514491472,
+            "spread_pct": 0.6320682081286569,
+            "samples_gbs": [
+              27.647956514491472,
+              27.659195005676125,
+              27.82278149274666
+            ],
+            "counters": null
+          },
+          "scale": {
+            "best_gbs": 29.11836471341968,
+            "median_gbs": 28.28393886641638,
+            "min_gbs": 25.97384597275702,
+            "spread_pct": 11.1176832742924,
+            "samples_gbs": [
+              25.97384597275702,
+              28.28393886641638,
+              29.11836471341968
+            ],
+            "counters": null
+          },
+          "add": {
+            "best_gbs": 31.8571546813863,
+            "median_gbs": 30.192737324061504,
+            "min_gbs": 26.671300970573014,
+            "spread_pct": 17.17583157549787,
+            "samples_gbs": [
+              31.8571546813863,
+              30.192737324061504,
+              26.671300970573014
+            ],
+            "counters": null
+          },
+          "triad": {
+            "best_gbs": 34.1970088785864,
+            "median_gbs": 33.02029503025127,
+            "min_gbs": 20.45782455010643,
+            "spread_pct": 41.608302760144724,
+            "samples_gbs": [
+              34.1970088785864,
+              33.02029503025127,
+              20.45782455010643
+            ],
+            "counters": null
+          }
+        },
+        "validated": true,
+        "max_rel_error": 0
+      },
+      {
+        "threads": 4,
+        "cpus": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "kernels": {
+          "copy": {
+            "best_gbs": 34.2632705409512,
+            "median_gbs": 34.14015681250395,
+            "min_gbs": 32.65650717158665,
+            "spread_pct": 4.706373723438984,
+            "samples_gbs": [
+              32.65650717158665,
+              34.14015681250395,
+              34.2632705409512
+            ],
+            "counters": null
+          },
+          "scale": {
+            "best_gbs": 33.27249571595493,
+            "median_gbs": 32.32733174521604,
+            "min_gbs": 26.25573858745509,
+            "spread_pct": 21.70533956777368,
+            "samples_gbs": [
+              26.25573858745509,
+              32.32733174521604,
+              33.27249571595493
+            ],
+            "counters": null
+          },
+          "add": {
+            "best_gbs": 45.40234476568886,
+            "median_gbs": 39.51516780415178,
+            "min_gbs": 36.12020182576345,
+            "spread_pct": 23.49007597773671,
+            "samples_gbs": [
+              45.40234476568886,
+              36.12020182576345,
+              39.51516780415178
+            ],
+            "counters": null
+          },
+          "triad": {
+            "best_gbs": 40.64581525745329,
+            "median_gbs": 40.28388270055331,
+            "min_gbs": 39.549658925054324,
+            "spread_pct": 2.7210791485695425,
+            "samples_gbs": [
+              40.64581525745329,
+              39.549658925054324,
+              40.28388270055331
+            ],
+            "counters": null
+          }
+        },
+        "validated": true,
+        "max_rel_error": 0
+      }
+    ],
+    "peak": {
+      "gbs": 45.40234476568886,
+      "kernel": "add",
+      "threads": 4
+    },
+    "validated": true,
+    "counters": {
+      "available": false,
+      "reason": "perf_event_open failed: ENOENT: event not supported here (VMs often expose no CPU PMU)"
+    }
+  },
+  "warnings": [
+    "hardware counters unavailable: perf_event_open failed: ENOENT: event not supported here (VMs often expose no CPU PMU)"
+  ]
+}

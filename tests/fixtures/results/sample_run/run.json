@@ -1,0 +1,108 @@
+{
+  "format_version": 1,
+  "tool": "run",
+  "tool_version": "0.1.0",
+  "timestamp": "2026-10-14T11:47:57Z",
+  "git_commit": "e838faf6377c",
+  "host": {
+    "hostname": "vm",
+    "kernel": "6.18.44-fc-v114",
+    "cpu_model": "Intel(R) Xeon(R) Processor @ 2.10GHz",
+    "logical_cpus": 4,
+    "governor": null,
+    "turbo": "unknown",
+    "smt": "off",
+    "compiler": "GCC 13.3.0",
+    "compiler_flags": "-std=c++20 -O2 -DNDEBUG -Wall -Wextra -Werror",
+    "build_type": "Release"
+  },
+  "params": {
+    "suite": "quick",
+    "out": "/tmp/claude-0/-home-user-Afterpass/ada6d9a2-af1e-5bcf-b313-ac4dda38ee6e/scratchpad/quick"
+  },
+  "results": {
+    "suite": "quick",
+    "files": {
+      "inventory": "inventory.json",
+      "memlat": "memlat.json",
+      "membw": "membw.json",
+      "memtest": "memtest.json",
+      "perfcheck": "perfcheck.json"
+    },
+    "tools": [
+      {
+        "tool": "inventory",
+        "exit_code": 0,
+        "seconds": 0.005,
+        "file": "inventory.json"
+      },
+      {
+        "tool": "memlat",
+        "exit_code": 0,
+        "seconds": 9.863,
+        "file": "memlat.json"
+      },
+      {
+        "tool": "membw",
+        "exit_code": 0,
+        "seconds": 28.224,
+        "file": "membw.json"
+      },
+      {
+        "tool": "memtest",
+        "exit_code": 0,
+        "seconds": 2.374,
+        "file": "memtest.json"
+      },
+      {
+        "tool": "perfcheck",
+        "exit_code": 0,
+        "seconds": 0.265,
+        "file": "perfcheck.json"
+      }
+    ],
+    "summary": {
+      "cpu_model": "Intel(R) Xeon(R) Processor @ 2.10GHz",
+      "inventory_status": "ok",
+      "inventory_warnings": [],
+      "dram_latency_ns": 150.8069278996865,
+      "dram_size_bytes": 67108864,
+      "detected_caches": [
+        {
+          "detected_bytes": 49152,
+          "level": 1,
+          "sysfs_bytes": 49152,
+          "ratio": 1
+        },
+        {
+          "detected_bytes": 1048576,
+          "level": 2,
+          "sysfs_bytes": 2097152,
+          "ratio": 0.5
+        },
+        {
+          "detected_bytes": 8388608,
+          "level": 3,
+          "sysfs_bytes": 272629760,
+          "ratio": 0.03076923076923077
+        }
+      ],
+      "counters_available": false,
+      "counters_reason": "perf_event_open failed: ENOENT: event not supported here (VMs often expose no CPU PMU)",
+      "peak_bandwidth_gbs": 45.40234476568886,
+      "peak_kernel": "add",
+      "peak_threads": 4,
+      "bandwidth_validated": true,
+      "memtest_errors": 0,
+      "memtest_bytes": 67108864,
+      "memtest_locked": true,
+      "perf_stat_within_tolerance": null,
+      "perf_stat_reason": "perfctr counters unavailable: perf_event_open failed: ENOENT: event not supported here (VMs often expose no CPU PMU)"
+    }
+  },
+  "warnings": [
+    "hardware counters unavailable: perf_event_open failed: ENOENT: event not supported here (VMs often expose no CPU PMU)",
+    "hardware counters unavailable: perf_event_open failed: ENOENT: event not supported here (VMs often expose no CPU PMU)",
+    "hardware counters unavailable: perf_event_open failed: ENOENT: event not supported here (VMs often expose no CPU PMU)"
+  ]
+}

@@ -1,0 +1,208 @@
+{
+  "format_version": 1,
+  "tool": "inventory",
+  "tool_version": "0.1.0",
+  "timestamp": "2026-10-14T11:48:15Z",
+  "git_commit": "baba4ddc43e8",
+  "host": {
+    "hostname": "vm",
+    "kernel": "6.18.44-fc-v114",
+    "cpu_model": "Intel(R) Xeon(R) Gold 6338 CPU @ 2.00GHz",
+    "logical_cpus": 8,
+    "governor": null,
+    "turbo": "unknown",
+    "smt": "off",
+    "compiler": "GCC 13.3.0",
+    "compiler_flags": "-std=c++20 -O2 -DNDEBUG -Wall -Wextra -Werror",
+    "build_type": "Release"
+  },
+  "params": {
+    "root": "tests/fixtures/sys/server",
+    "temp_threshold_c": 85
+  },
+  "results": {
+    "cpu": {
+      "vendor": "GenuineIntel",
+      "model": "Intel(R) Xeon(R) Gold 6338 CPU @ 2.00GHz",
+      "logical_cpus": 8,
+      "flags": [
+        "fpu",
+        "vme",
+        "de",
+        "pse",
+        "tsc",
+        "msr",
+        "pae",
+        "mce",
+        "cx8",
+        "apic",
+        "sep",
+        "mtrr",
+        "sse",
+        "sse2",
+        "avx",
+        "avx2",
+        "avx512f"
+      ]
+    },
+    "topology": {
+      "sockets": 2,
+      "cores": 8,
+      "threads": 8,
+      "threads_per_core": 1
+    },
+    "caches": [
+      {
+        "level": 1,
+        "type": "Data",
+        "size_bytes": 49152,
+        "line_size": 64,
+        "shared_cpu_list": "0"
+      },
+      {
+        "level": 1,
+        "type": "Instruction",
+        "size_bytes": 32768,
+        "line_size": 64,
+        "shared_cpu_list": "0"
+      },
+      {
+        "level": 2,
+        "type": "Unified",
+        "size_bytes": 1310720,
+        "line_size": 64,
+        "shared_cpu_list": "0"
+      },
+      {
+        "level": 3,
+        "type": "Unified",
+        "size_bytes": 50331648,
+        "line_size": 64,
+        "shared_cpu_list": "0-3"
+      }
+    ],
+    "frequency": {
+      "available": false,
+      "governor": null,
+      "per_cpu": []
+    },
+    "memory": {
+      "total_kib": 263921592,
+      "free_kib": 250000000,
+      "available_kib": 255000000,
+      "hugepages_total": 16,
+      "hugepage_size_kib": 2048
+    },
+    "numa": [
+      {
+        "node": 0,
+        "cpus": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "mem_total_kib": 131960796
+      },
+      {
+        "node": 1,
+        "cpus": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "mem_total_kib": 131960796
+      }
+    ],
+    "pcie": [
+      {
+        "address": "0000:00:00.0",
+        "vendor": "0x8086",
+        "device": "0x09a2",
+        "class": "0x088000",
+        "class_name": "System peripheral",
+        "link": null
+      },
+      {
+        "address": "0000:17:00.0",
+        "vendor": "0x15b3",
+        "device": "0x101d",
+        "class": "0x020000",
+        "class_name": "Ethernet controller",
+        "link": {
+          "cur_speed_gts": 8,
+          "cur_width": 8,
+          "max_speed_gts": 8,
+          "max_width": 16,
+          "cur_speed_raw": "8.0 GT/s PCIe",
+          "max_speed_raw": "8.0 GT/s PCIe"
+        }
+      },
+      {
+        "address": "0000:b1:00.0",
+        "vendor": "0x144d",
+        "device": "0xa824",
+        "class": "0x010802",
+        "class_name": "NVMe controller",
+        "link": {
+          "cur_speed_gts": 16,
+          "cur_width": 4,
+          "max_speed_gts": 16,
+          "max_width": 4,
+          "cur_speed_raw": "16.0 GT/s PCIe",
+          "max_speed_raw": "16.0 GT/s PCIe"
+        }
+      }
+    ],
+    "sensors": [
+      {
+        "chip": "coretemp",
+        "label": "Package id 0",
+        "kind": "temperature",
+        "value": 60,
+        "unit": "C"
+      }
+    ],
+    "edac": {
+      "present": true,
+      "controllers": [
+        {
+          "name": "mc0",
+          "ce_count": 3,
+          "ue_count": 0
+        },
+        {
+          "name": "mc1",
+          "ce_count": 0,
+          "ue_count": 0
+        }
+      ]
+    },
+    "checks": [
+      {
+        "level": "warn",
+        "check": "pcie_link",
+        "subject": "0000:17:00.0",
+        "message": "Ethernet controller link at 8 GT/s x8, maximum 8 GT/s x16 (narrower). GPUs and some other devices slow their links on purpose when idle: re-check under load"
+      },
+      {
+        "level": "ok",
+        "check": "temperature",
+        "subject": "all",
+        "message": "1 sensor(s), hottest 60.0 C"
+      },
+      {
+        "level": "fail",
+        "check": "edac",
+        "subject": "mc0",
+        "message": "3 corrected and 0 uncorrected memory error(s)"
+      }
+    ],
+    "status": "fail"
+  },
+  "warnings": [
+    "pcie_link 0000:17:00.0: Ethernet controller link at 8 GT/s x8, maximum 8 GT/s x16 (narrower). GPUs and some other devices slow their links on purpose when idle: re-check under load",
+    "edac mc0: 3 corrected and 0 uncorrected memory error(s)"
+  ]
+}
