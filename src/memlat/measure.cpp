@@ -19,7 +19,8 @@ std::string curve_name(const CurveSpec& c) {
 }
 
 Curve measure_curve(const CurveSpec& spec, const MeasureOptions& opts, const std::vector<SysfsCache>& caches,
-                    const RepHooks* hooks, const std::function<void(const std::string&)>& progress) {
+                    perfctr::CounterGroup* counters, const std::function<void(const std::string&)>& progress) {
+  const bool count = counters && counters->available();
   Curve curve;
   curve.spec = spec;
   std::vector<uint64_t> sizes;
@@ -51,21 +52,19 @@ Curve measure_curve(const CurveSpec& spec, const MeasureOptions& opts, const std
     steps = (steps + 15) / 16 * 16;
     pt.steps_per_rep = steps;
 
-    std::vector<json::Value> rep_counters;
+    std::vector<perfctr::Reading> readings;
     for (int rep = 0; rep < opts.reps; ++rep) {
-      if (hooks && hooks->begin) hooks->begin();
+      if (count) counters->start();
       t0 = now_ns();
       p = chase(p, steps);  // p carries on round the cycle across repetitions
       t1 = now_ns();
-      if (hooks && hooks->end) rep_counters.push_back(hooks->end(steps));
+      if (count) readings.push_back(counters->stop());
       pt.samples_ns.push_back(static_cast<double>(t1 - t0) / static_cast<double>(steps));
     }
     g_sink = reinterpret_cast<uintptr_t>(p);
 
     pt.summary = summarize(pt.samples_ns);
-    if (hooks && hooks->combine) {
-      pt.counters = hooks->combine(rep_counters, steps * static_cast<uint64_t>(opts.reps));
-    }
+    if (count) pt.counters = point_counters(perfctr::sum(readings), steps * static_cast<uint64_t>(opts.reps));
     if (progress) {
       char line[160];
       std::snprintf(line, sizeof line, "%-15s %6s  %8.2f ns  (spread %.1f%%)", curve_name(spec).c_str(),
@@ -80,6 +79,23 @@ Curve measure_curve(const CurveSpec& spec, const MeasureOptions& opts, const std
   curve.boundaries = detect_boundaries(sizes, medians, opts.threshold);
   curve.cache_matches = match_caches(curve.boundaries, caches);
   return curve;
+}
+
+json::Value point_counters(const perfctr::Reading& total, uint64_t loads) {
+  if (!total.available || loads == 0) return nullptr;
+  auto j = perfctr::to_json(total);
+  auto per_load = json::Value::object();
+  auto rate = [&](perfctr::Event e) {
+    auto v = total.value(e);
+    return v ? json::Value(*v / static_cast<double>(loads)) : json::Value(nullptr);
+  };
+  per_load["cycles"] = rate(perfctr::Event::Cycles);
+  per_load["instructions"] = rate(perfctr::Event::Instructions);
+  per_load["l1d_read_misses"] = rate(perfctr::Event::L1dReadMisses);
+  per_load["dtlb_read_misses"] = rate(perfctr::Event::DtlbReadMisses);
+  per_load["cache_misses"] = rate(perfctr::Event::CacheMisses);
+  j["per_load"] = std::move(per_load);
+  return j;
 }
 
 json::Value to_json(const Curve& c) {

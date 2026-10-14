@@ -10,6 +10,7 @@
 #include "common/memory.hpp"
 #include "common/timing.hpp"
 #include "memlat/chain.hpp"
+#include "perfctr/perfctr.hpp"
 
 namespace hwdiag::memlat {
 
@@ -45,20 +46,16 @@ struct Curve {
   std::vector<CacheMatch> cache_matches;
 };
 
-// Hooks around each timed repetition, used to read hardware counters.
-// begin() runs just before the timer starts; end(steps) just after it stops
-// and returns that repetition's counter readings (or null).
-struct RepHooks {
-  std::function<void()> begin;
-  std::function<json::Value(uint64_t steps)> end;
-  // Combines the per-repetition readings into the point's counters.
-  std::function<json::Value(const std::vector<json::Value>&, uint64_t total_steps)> combine;
-};
-
-// progress (may be empty) is called after each size with a one-line summary.
+// counters (may be null) is started and stopped around every timed
+// repetition; the readings are summed per size. progress (may be empty) is
+// called after each size with a one-line summary.
 Curve measure_curve(const CurveSpec& spec, const MeasureOptions& opts, const std::vector<SysfsCache>& caches,
-                    const RepHooks* hooks = nullptr,
+                    perfctr::CounterGroup* counters = nullptr,
                     const std::function<void(const std::string&)>& progress = {});
+
+// Per-size counter summary: the perfctr reading plus per-load rates
+// (cycles, L1D and dTLB read misses per load). Null when unavailable.
+json::Value point_counters(const perfctr::Reading& total, uint64_t loads);
 
 json::Value to_json(const Curve& c);
 

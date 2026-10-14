@@ -138,10 +138,14 @@ int main(int argc, char** argv) {
       if (!quiet) std::cerr << "memlat: " << line << "\n";
     };
 
+    // Opened after pinning, so the probe runs on the measurement CPU.
+    perfctr::CounterGroup counters;
+    if (!counters.available()) warnings.push_back("hardware counters unavailable: " + counters.reason());
+
     auto curves = json::Value::array();
     std::vector<Curve> measured;
     for (const auto& spec : specs) {
-      measured.push_back(measure_curve(spec, opts, caches, nullptr, progress));
+      measured.push_back(measure_curve(spec, opts, caches, &counters, progress));
       curves.push_back(to_json(measured.back()));
       if (spec.pages == Pages::Huge) {
         bool any_huge = false;
@@ -179,6 +183,17 @@ int main(int argc, char** argv) {
     params["root"] = root;
 
     auto results = json::Value::object();
+    auto ctr = json::Value::object();
+    ctr["available"] = counters.available();
+    ctr["reason"] = counters.available() ? json::Value(nullptr) : json::Value(counters.reason());
+    auto layout = json::Value::array();
+    for (const auto& group : counters.layout()) {
+      auto g = json::Value::array();
+      for (auto e : group) g.push_back(perfctr::event_name(e));
+      layout.push_back(std::move(g));
+    }
+    ctr["group_layout"] = std::move(layout);
+    results["counters"] = std::move(ctr);
     results["sysfs_caches"] = std::move(sys_caches);
     results["curves"] = std::move(curves);
     results["dram_latency_ns"] = dram;

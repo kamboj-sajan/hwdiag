@@ -17,10 +17,11 @@ include(GoogleTest)
 set(HWDIAG_TEST_SOURCES
   test_common.cpp
   test_inventory.cpp
-  test_memlat.cpp)
+  test_memlat.cpp
+  test_perfctr.cpp)
 
 add_executable(hwdiag_tests ${HWDIAG_TEST_SOURCES})
-target_link_libraries(hwdiag_tests PRIVATE hwdiag_inventory hwdiag_memlat GTest::gtest_main)
+target_link_libraries(hwdiag_tests PRIVATE hwdiag_inventory hwdiag_memlat hwdiag_perfctr GTest::gtest_main)
 target_compile_definitions(hwdiag_tests PRIVATE
   HWDIAG_FIXTURES_DIR="${CMAKE_SOURCE_DIR}/tests/fixtures")
 gtest_discover_tests(hwdiag_tests DISCOVERY_TIMEOUT 60)

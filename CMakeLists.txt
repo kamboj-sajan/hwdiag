@@ -57,6 +57,7 @@ configure_file(src/common/build_info.hpp.in ${CMAKE_BINARY_DIR}/generated/build_
 find_package(Threads REQUIRED)
 
 add_subdirectory(src/common)
+add_subdirectory(src/perfctr)
 add_subdirectory(src/inventory)
 add_subdirectory(src/memlat)
 
