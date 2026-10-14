@@ -1,0 +1,324 @@
+{
+  "format_version": 1,
+  "tool": "inventory",
+  "tool_version": "0.1.0",
+  "timestamp": "2026-10-14T11:59:38Z",
+  "git_commit": "0d92d7db85eb",
+  "host": {
+    "hostname": "vm",
+    "kernel": "6.18.44-fc-v114",
+    "cpu_model": "Intel(R) Xeon(R) Processor @ 2.10GHz",
+    "logical_cpus": 4,
+    "governor": null,
+    "turbo": "unknown",
+    "smt": "off",
+    "compiler": "GCC 13.3.0",
+    "compiler_flags": "-std=c++20 -O2 -DNDEBUG -Wall -Wextra -Werror",
+    "build_type": "Release"
+  },
+  "params": {
+    "root": "/",
+    "temp_threshold_c": 85
+  },
+  "results": {
+    "cpu": {
+      "vendor": "GenuineIntel",
+      "model": "Intel(R) Xeon(R) Processor @ 2.10GHz",
+      "logical_cpus": 4,
+      "flags": [
+        "fpu",
+        "vme",
+        "de",
+        "pse",
+        "tsc",
+        "msr",
+        "pae",
+        "mce",
+        "cx8",
+        "apic",
+        "sep",
+        "mtrr",
+        "pge",
+        "mca",
+        "cmov",
+        "pat",
+        "pse36",
+        "clflush",
+        "mmx",
+        "fxsr",
+        "sse",
+        "sse2",
+        "ss",
+        "ht",
+        "syscall",
+        "nx",
+        "pdpe1gb",
+        "rdtscp",
+        "lm",
+        "constant_tsc",
+        "rep_good",
+        "nopl",
+        "xtopology",
+        "nonstop_tsc",
+        "cpuid",
+        "tsc_known_freq",
+        "pni",
+        "pclmulqdq",
+        "ssse3",
+        "fma",
+        "cx16",
+        "pcid",
+        "sse4_1",
+        "sse4_2",
+        "x2apic",
+        "movbe",
+        "popcnt",
+        "tsc_deadline_timer",
+        "aes",
+        "xsave",
+        "avx",
+        "f16c",
+        "rdrand",
+        "hypervisor",
+        "lahf_lm",
+        "abm",
+        "3dnowprefetch",
+        "cpuid_fault",
+        "ssbd",
+        "ibrs",
+        "ibpb",
+        "stibp",
+        "ibrs_enhanced",
+        "fsgsbase",
+        "tsc_adjust",
+        "bmi1",
+        "hle",
+        "avx2",
+        "smep",
+        "bmi2",
+        "erms",
+        "invpcid",
+        "rtm",
+        "avx512f",
+        "avx512dq",
+        "rdseed",
+        "adx",
+        "smap",
+        "avx512ifma",
+        "clflushopt",
+        "clwb",
+        "avx512cd",
+        "sha_ni",
+        "avx512bw",
+        "avx512vl",
+        "xsaveopt",
+        "xsavec",
+        "xgetbv1",
+        "xsaves",
+        "avx_vnni",
+        "avx512_bf16",
+        "wbnoinvd",
+        "arat",
+        "avx512vbmi",
+        "umip",
+        "avx512_vbmi2",
+        "gfni",
+        "vaes",
+        "vpclmulqdq",
+        "avx512_vnni",
+        "avx512_bitalg",
+        "avx512_vpopcntdq",
+        "rdpid",
+        "cldemote",
+        "movdiri",
+        "movdir64b",
+        "fsrm",
+        "md_clear",
+        "serialize",
+        "tsxldtrk",
+        "amx_bf16",
+        "avx512_fp16",
+        "amx_tile",
+        "amx_int8",
+        "arch_capabilities"
+      ]
+    },
+    "topology": {
+      "sockets": 1,
+      "cores": 4,
+      "threads": 4,
+      "threads_per_core": 1
+    },
+    "caches": [
+      {
+        "level": 1,
+        "type": "Data",
+        "size_bytes": 49152,
+        "line_size": 64,
+        "shared_cpu_list": "0"
+      },
+      {
+        "level": 1,
+        "type": "Instruction",
+        "size_bytes": 32768,
+        "line_size": 64,
+        "shared_cpu_list": "0"
+      },
+      {
+        "level": 2,
+        "type": "Unified",
+        "size_bytes": 2097152,
+        "line_size": 64,
+        "shared_cpu_list": "0"
+      },
+      {
+        "level": 3,
+        "type": "Unified",
+        "size_bytes": 272629760,
+        "line_size": 64,
+        "shared_cpu_list": "0-3"
+      }
+    ],
+    "frequency": {
+      "available": false,
+      "governor": null,
+      "per_cpu": []
+    },
+    "memory": {
+      "total_kib": 16479424,
+      "free_kib": 15200812,
+      "available_kib": 15876980,
+      "hugepages_total": 0,
+      "hugepage_size_kib": 2048
+    },
+    "numa": [
+      {
+        "node": 0,
+        "cpus": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "mem_total_kib": 7700216
+      }
+    ],
+    "pcie": [
+      {
+        "address": "0000:00:00.0",
+        "vendor": "0x8086",
+        "device": "0x0d57",
+        "class": "0x060000",
+        "class_name": "Host bridge",
+        "link": null
+      },
+      {
+        "address": "0000:00:0a.0",
+        "vendor": "0x1af4",
+        "device": "0x1044",
+        "class": "0xffff00",
+        "class_name": "class 0xffff",
+        "link": null
+      },
+      {
+        "address": "0000:00:01.0",
+        "vendor": "0x1af4",
+        "device": "0x1045",
+        "class": "0xffff00",
+        "class_name": "class 0xffff",
+        "link": null
+      },
+      {
+        "address": "0000:00:02.0",
+        "vendor": "0x1af4",
+        "device": "0x1042",
+        "class": "0x018000",
+        "class_name": "class 0x0180",
+        "link": null
+      },
+      {
+        "address": "0000:00:03.0",
+        "vendor": "0x1af4",
+        "device": "0x1042",
+        "class": "0x018000",
+        "class_name": "class 0x0180",
+        "link": null
+      },
+      {
+        "address": "0000:00:04.0",
+        "vendor": "0x1af4",
+        "device": "0x1042",
+        "class": "0x018000",
+        "class_name": "class 0x0180",
+        "link": null
+      },
+      {
+        "address": "0000:00:05.0",
+        "vendor": "0x1af4",
+        "device": "0x1042",
+        "class": "0x018000",
+        "class_name": "class 0x0180",
+        "link": null
+      },
+      {
+        "address": "0000:00:06.0",
+        "vendor": "0x1af4",
+        "device": "0x1042",
+        "class": "0x018000",
+        "class_name": "class 0x0180",
+        "link": null
+      },
+      {
+        "address": "0000:00:07.0",
+        "vendor": "0x1af4",
+        "device": "0x1042",
+        "class": "0x018000",
+        "class_name": "class 0x0180",
+        "link": null
+      },
+      {
+        "address": "0000:00:08.0",
+        "vendor": "0x1af4",
+        "device": "0x1041",
+        "class": "0x020000",
+        "class_name": "Ethernet controller",
+        "link": null
+      },
+      {
+        "address": "0000:00:09.0",
+        "vendor": "0x1af4",
+        "device": "0x1053",
+        "class": "0xffff00",
+        "class_name": "class 0xffff",
+        "link": null
+      }
+    ],
+    "sensors": [],
+    "edac": {
+      "present": false,
+      "controllers": []
+    },
+    "checks": [
+      {
+        "level": "info",
+        "check": "pcie_link",
+        "subject": "all",
+        "message": "no PCIe devices report link speed and width (normal in VMs)"
+      },
+      {
+        "level": "info",
+        "check": "temperature",
+        "subject": "hwmon",
+        "message": "no temperature sensors found (normal in VMs)"
+      },
+      {
+        "level": "info",
+        "check": "edac",
+        "subject": "edac",
+        "message": "EDAC not present (normal on desktops and VMs); memory error counts can't be read"
+      }
+    ],
+    "status": "ok"
+  },
+  "warnings": []
+}
