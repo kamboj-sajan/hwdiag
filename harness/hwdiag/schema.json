@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/kamboj-sajan/linux_test/blob/main/harness/hwdiag/schema.json",
+  "$id": "https://github.com/kamboj-sajan/hwdiag/blob/main/harness/hwdiag/schema.json",
   "title": "hwdiag result (format_version 1)",
   "description": "One JSON object per tool run. The envelope is the same for every tool; results depend on the tool.",
   "type": "object",

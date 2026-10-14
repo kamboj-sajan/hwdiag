@@ -1,6 +1,6 @@
 # hwdiag
 
-[![ci](https://github.com/kamboj-sajan/linux_test/actions/workflows/ci.yml/badge.svg)](https://github.com/kamboj-sajan/linux_test/actions/workflows/ci.yml)
+[![ci](https://github.com/kamboj-sajan/hwdiag/actions/workflows/ci.yml/badge.svg)](https://github.com/kamboj-sajan/hwdiag/actions/workflows/ci.yml)
 
 Linux hardware diagnostics in C++ and Python. Four command-line tools read the machine's hardware
 description and measure its memory system. A Python harness runs them as suites, plots the
@@ -102,7 +102,7 @@ sudo apt install build-essential cmake ninja-build libgtest-dev python3-venv \
 # memtest locks its buffer in RAM
 ulimit -l unlimited
 
-git clone https://github.com/kamboj-sajan/linux_test.git hwdiag && cd hwdiag
+git clone https://github.com/kamboj-sajan/hwdiag.git && cd hwdiag
 cmake -S . -B build -G Ninja && cmake --build build
 ctest --test-dir build                       # GoogleTest
 
